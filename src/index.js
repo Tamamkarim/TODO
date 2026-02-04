@@ -34,8 +34,8 @@ app.get('/users', getUsers);
 app.get('/users/:id', getUserById);
 app.post('/users', createUser);
 
-// Dummy login endpoint
-app.post('/login', loginUser);
+// Dummy login endpoint under users resource
+app.post('/users/login', loginUser);
 
 // 404 handler for unmatched routes
 app.use((req, res) => {

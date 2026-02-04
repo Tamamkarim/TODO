@@ -24,13 +24,22 @@ const users = [
 let nextUserId = users.length + 1;
 
 const getUsers = (req, res) => {
-  // Typically you would not send passwords; keeping them here only because
-  // the mock data includes them. A real app would hash and omit them.
-  res.json(users.map(({ password, ...rest }) => rest));
+  // لا نُرجِع كلمة المرور في الـ API
+  const safeUsers = users.map((u) => ({
+    id: u.id,
+    username: u.username,
+    email: u.email,
+  }));
+
+  res.json(safeUsers);
 };
 
 const getUserById = (req, res) => {
   const id = Number(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return res.status(400).json({ error: 'Invalid user id' });
+  }
   const user = users.find((u) => u.id === id);
 
   if (!user) {

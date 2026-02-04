@@ -14,6 +14,10 @@ const getItems = (req, res) => {
 
 const getItemById = (req, res) => {
   const id = Number(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return res.status(400).json({ error: 'Invalid item id' });
+  }
   const item = items.find((i) => i.id === id);
 
   if (!item) {
@@ -43,6 +47,10 @@ const createItem = (req, res) => {
 
 const deleteItem = (req, res) => {
   const id = Number(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return res.status(400).json({ error: 'Invalid item id' });
+  }
   const index = items.findIndex((i) => i.id === id);
 
   if (index === -1) {
